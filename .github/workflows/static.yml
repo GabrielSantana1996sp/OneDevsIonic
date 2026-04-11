@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build Ionic Angular app
-        run: npm run build -- --configuration production --base-href="/NOME_DO_REPO/"
+        run: npm run build -- --configuration production --base-href="/OneDevsIonic/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
