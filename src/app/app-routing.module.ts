@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./pages/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },
+  {
+    path: 'tela-login',
+    loadChildren: () => import('./pages/tela-login/tela-login.module').then( m => m.TelaLoginPageModule)
+  },
 ];
 
 @NgModule({

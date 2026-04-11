@@ -1,0 +1,82 @@
+/* FUNDO IGUAL AO HOME */
+ion-content {
+  --background: linear-gradient(#0d1b2a, #000000);
+  color: white;
+}
+
+/* HEADER */
+ion-toolbar {
+  --background: #0d1b2a;
+}
+
+ion-title {
+  color: #4fc3f7;
+}
+
+/* CONTAINER CENTRAL */
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 25px;
+
+  background: #0d1b2a;
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.2);
+}
+
+/* TÍTULO */
+.login-container h2 {
+  color: #4fc3f7;
+  margin-bottom: 10px;
+}
+
+.login-container p {
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+ion-item {
+  --background: transparent;
+  --border-color: #4fc3f7;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+/* TEXTO DOS INPUTS */
+ion-label {
+  color: #4fc3f7 !important;
+}
+
+/* INPUT */
+ion-input {
+  color: white;
+}
+
+/* BOTÃO */
+ion-button {
+  --background: #4fc3f7;
+  --color: black;
+  font-weight: bold;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+ion-button:hover {
+  --background: #29b6f6;
+}
+
+/* ERRO */
+.erro {
+  color: #ff4d4d;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* BOTÃO VOLTAR */
+ion-back-button {
+  --color: #4fc3f7;
+}

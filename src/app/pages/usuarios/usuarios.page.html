@@ -1,0 +1,54 @@
+<ion-header>
+<ion-toolbar>
+  <ion-title>
+    Cadastro de Usuários
+  </ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="cadastroUsuario">
+
+    <!--Campo Nome-->
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input formControlName="nome" type="text"></ion-input>
+    </ion-item>
+    <div *ngIf="cadastroUsuario.get('nome')?.invalid && cadastroUsuario.get('nome')?.touched">
+      <ion-text color="danger">
+        <p *ngIf="cadastroUsuario.get('nome')?.hasError('required')">O nome é obrigatório</p>
+      </ion-text>
+    </div>
+
+     <!--Campo Email-->
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <div *ngIf="cadastroUsuario.get('email')?.invalid && cadastroUsuario.get('email')?.touched">
+      <ion-text color="danger">
+        <p *ngIf="cadastroUsuario.get('email')?.hasError('required')">O e-mail é obrigatório</p>
+        <p *ngIf="cadastroUsuario.get('email')?.hasError('email')">Digite um e-mail válido.</p>
+      </ion-text>
+    </div>
+
+    <!--Campo Senha-->
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input formControlName="senha" type="password"></ion-input>
+    </ion-item>
+        <div *ngIf="cadastroUsuario.get('senha')?.invalid && cadastroUsuario.get('senha')?.touched">
+      <ion-text color="danger">
+        <p *ngIf="cadastroUsuario.get('senha')?.hasError('required')">A senha é obrigatória</p>
+        <p *ngIf="cadastroUsuario.get('senha')?.hasError('minlength')">A senha deve ter 8 caracteres</p>
+      </ion-text>
+    </div>
+
+    <!--Botão-->
+    <ion-button expand="full" type="submit" [disabled]="cadastroUsuario.invalid">
+      Salvar
+    </ion-button>
+
+  </form>
+</ion-content>
+
