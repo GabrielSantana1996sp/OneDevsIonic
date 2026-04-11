@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build Ionic Angular app
-        run: npm run build -- --configuration production --base-href="/OneDevsIonic/"
+        run: npm run build -- --configuration production --base-href="/NOME_DO_REPO/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/OneDevsIonic
+          path: ./www
 
       - name: Deploy to GitHub Pages
         id: deployment
