@@ -1,4 +1,4 @@
-name: Deploy Ionic App to Pages
+name: Deploy Ionic Angular App to GitHub Pages
 
 on:
   push:
@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Ionic app
-        run: npm run build -- --outputPath=www
+      - name: Build Ionic Angular app
+        run: npm run build -- --configuration production
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -41,7 +41,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./www
+          # Ajuste o caminho conforme o nome do seu projeto
+          path: ./dist/OneDevsIonic
 
       - name: Deploy to GitHub Pages
         id: deployment
