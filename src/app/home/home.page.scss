@@ -1,16 +1,10 @@
-/* RESET (funciona no Ionic também) */
-* {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* FUNDO DO APP */
+/* FUNDO */
 ion-content {
-  --background: linear-gradient(#0d1b2a, #000000);
+  --background: linear-gradient(#0d1b2a, #000);
   color: white;
 }
 
-/* HEADER (ion-toolbar substitui .header) */
+/* HEADER */
 ion-toolbar {
   --background: #0d1b2a;
 }
@@ -19,142 +13,94 @@ ion-title {
   color: #4fc3f7;
 }
 
-ion-button {
-  --color: white;
-}
-
-/* HERO */
-#hero {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-
-  background-image: url("https://evermonte.com/wp-content/uploads/2022/09/tecnologia-inteligente-trabalho-humanizado.png");
-  background-size: cover;
-  background-position: center;
-}
-
-#hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-#hero p {
-  font-size: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-/* SECTIONS */
-section {
-  padding: 80px 10%;
-}
-
-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #4fc3f7;
-}
-
-/* CARDS (ION-CARD) */
-ion-card {
-  background: #0d1b2a;
-  border-radius: 10px;
-  transition: 0.3s;
-  text-align: center;
-}
-
-ion-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
-}
-
-ion-card-title {
-  color: #4fc3f7;
-}
-
-/* ICONES */
-ion-icon {
-  color: #297bf6;
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-/* PARA QUEM TEXTO */
-#paraquem p {
-  text-align: center;
-}
-
-/* CARROSSEL */
-.carrossel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-}
-
 /* BOTÕES */
 ion-button {
   --background: #4fc3f7;
   --color: black;
   font-weight: bold;
+  border-radius: 20px;
 }
 
-ion-button:hover {
-  --background: #29b6f6;
+/* CARDS */
+ion-card {
+  background: #0d1b2a;
+  border-radius: 16px;
+  margin: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-/* TOOL CARD (FERRAMENTAS) */
-.tool-card {
-  width: 250px;
-  text-align: center;
+ion-card#sobre ion-item {
+  --background: rgba(255,255,255,0.05);
+  --color: white;
+  margin: 6px 0;
+  border-radius: 10px;
+}
+
+/* LISTA */
+ion-item {
+  --background: transparent;
+  border-radius: 12px;
+  margin: 6px 10px;
+}
+
+/* TÍTULOS */
+.section-title {
+  color: #4fc3f7;
+  margin-left: 16px;
+}
+
+/* ICONES */
+ion-icon {
+  color: #4fc3f7;
+}
+
+ion-fab-button ion-icon {
+  color: black !important;
+}
+
+/* SCROLL HORIZONTAL (CHAVE DO APP STYLE) */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 10px;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* CARDS DO SCROLL */
+ .tool-card {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .tool-card img {
   width: 100%;
-  height: 150px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px 12px 0 0;
 }
 
-/* VERSÕES */
-#versoes ion-card {
-  margin: auto;
+
+/* IMAGENS */
+ion-card img {
+  width: 100%;
+  border-radius: 12px;
 }
 
-/* SOBRE */
-#sobre ion-card {
-  margin: 30px auto;
-  max-width: 500px;
+/* FAB */
+ion-fab-button {
+  --background: #4fc3f7;
+  --color: black;
 }
 
-/* FOOTER */
-section:last-of-type {
-  background: #1a0252;
-}
-
-ion-input {
-  margin-top: 10px;
-}
-
-/* COPYRIGHT */
-ion-footer {
-  --background: #0d1b2a;
-  text-align: center;
-}
-
-/* LOGIN (se usar na mesma página ou reaproveitar) */
-.login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  text-align: center;
-}
-
-.erro {
-  color: red;
-  margin-top: 10px;
+/* ESPAÇO FINAL */
+ion-content {
+  --padding-bottom: 80px;
 }

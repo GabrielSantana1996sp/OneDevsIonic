@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-tela-login',
   templateUrl: './tela-login.page.html',
   styleUrls: ['./tela-login.page.scss'],
-  standalone: false
+  standalone: false,
 })
 export class TelaLoginPage {
 
@@ -14,30 +15,34 @@ export class TelaLoginPage {
   senha: string = '';
   erro: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private auth: Auth // Injeção necessária para o Firebase funcionar
+  ) {}
 
-  login() {
+  async login() {
 
     if (!this.email || !this.senha) {
-
       // obrigatório se não colocar nada
       this.erro = 'Preencha todos os campos!';
       return;
     }
 
-    // exemplo fake de login
-    if (this.email === 'admin@email.com' && this.senha === '1234') {
+    this.erro = ''; // Limpa o erro antes de tentar o login real
 
-      // se caso der algum erro
-      this.erro = '';
+    try {
+      // NOVA FUNÇÃO: Logado com sucesso via Firebase
+      const res = await signInWithEmailAndPassword(this.auth, this.email, this.senha);
 
-      // redireciona para a tela inicial
-      this.router.navigate(['/']);
-    } else {
-      
-      // se a senha ou email estiverem errados
+      console.log('Logado com sucesso:', res.user);
+
+      // redireciona para a tela de sugestões (ou a home '/')
+      this.router.navigate(['/sugestoes']);
+
+    } catch (e: any) {
+      // se a senha ou email estiverem errados ou houver erro de rede
+      console.error(e);
       this.erro = 'Email ou senha inválidos!';
     }
   }
-
 }

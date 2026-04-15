@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'tela-login',
     loadChildren: () => import('./pages/tela-login/tela-login.module').then( m => m.TelaLoginPageModule)
+  },  {
+    path: 'sugestoes',
+    loadChildren: () => import('./pages/sugestoes/sugestoes.module').then( m => m.SugestoesPageModule)
   },
+
 ];
 
 @NgModule({

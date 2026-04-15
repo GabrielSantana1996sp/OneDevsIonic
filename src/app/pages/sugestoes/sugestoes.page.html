@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sugestões OneDevs</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="filtroAtual" (ionChange)="carregarSugestoes()">
+      <ion-segment-button value="recentes">
+        <ion-label>Recentes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="populares">
+        <ion-label>Populares</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card class="ion-no-margin ion-margin-bottom">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-textarea
+          placeholder="Como podemos melhorar o OneDevsOS?"
+          [(ngModel)]="novaSugestao"
+          rows="3"
+          auto-grow="true">
+        </ion-textarea>
+      </ion-item>
+      <ion-button
+        expand="block"
+        (click)="enviarSugestao()"
+        [disabled]="novaSugestao.length < 5"
+        class="ion-margin-top">
+        <ion-icon slot="start" name="send-outline"></ion-icon>
+        Enviar Sugestão
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-padding-vertical">
+    <ion-label color="medium">
+      <h2>Comentários e Feedbacks</h2>
+    </ion-label>
+
+    <ion-item lines="none" style="--background: transparent; padding: 0;">
+      <ion-select label="Filtrar por status" label-placement="floating" (ionChange)="filtrarStatus($event)">
+        <ion-select-option value="todos">Todos os comentários</ion-select-option>
+        <ion-select-option value="respondida">Respondidos</ion-select-option>
+        <ion-select-option value="pendente">Pendentes</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <hr />
+
+  <div *ngIf="(sugestoes$ | async) as lista; else carregando">
+
+    <ion-card *ngFor="let s of lista" class="ion-margin-bottom">
+      <ion-card-header>
+        <ion-item lines="none" style="--padding-start: 0;">
+          <ion-avatar slot="start" style="width: 32px; height: 32px;">
+            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-label>
+            <h3>{{ s.usuarioNome }}</h3>
+            <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
+          </ion-label>
+
+          <ion-badge slot="end" [color]="s.status === 'respondida' ? 'success' : 'warning'">
+            {{ s.status === 'respondida' ? 'Respondido' : 'Pendente' }}
+          </ion-badge>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p style="color: var(--ion-color-dark); font-size: 1.1em;">
+          {{ s.texto }}
+        </p>
+
+        <div *ngIf="s.respostaAdm"
+             style="background: #f0f7ff; padding: 12px; border-left: 4px solid var(--ion-color-primary); margin-top: 15px; border-radius: 0 8px 8px 0;">
+          <ion-label color="primary"><strong>Resposta do Suporte:</strong></ion-label>
+          <p style="margin-top: 5px; font-style: italic;">{{ s.respostaAdm }}</p>
+        </div>
+      </ion-card-content>
+
+      <ion-footer>
+        <ion-row>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="toggleCurtida(s)">
+              <ion-icon
+                slot="start"
+                [name]="s.usuariosCurtiram?.includes(userId) ? 'thumbs-up' : 'thumbs-up-outline'"
+                [color]="s.usuariosCurtiram?.includes(userId) ? 'primary' : 'medium'">
+              </ion-icon>
+              {{ s.curtidas }} pessoas acharam útil
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+    <div *ngIf="lista.length === 0" class="ion-text-center ion-padding">
+      <ion-text color="medium">
+        <p>Nenhuma sugestão encontrada para este filtro.</p>
+      </ion-text>
+    </div>
+
+  </div>
+
+  <ng-template #carregando>
+    <div class="ion-text-center ion-padding">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Carregando sugestões...</p>
+    </div>
+  </ng-template>
+
+</ion-content>

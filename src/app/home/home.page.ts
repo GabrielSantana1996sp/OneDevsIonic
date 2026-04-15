@@ -19,17 +19,17 @@ export class HomePage {
   index = 0;
 
   ferramentas = [
-    { nome: 'Ferramenta 1', imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPuSVpDkSWHQH68eOnBAhzT0fs4iEbThTW0A&s' },
-    { nome: 'Ferramenta 2', imagem: 'https://cdn-icons-png.flaticon.com/512/919/919825.png' },
-    { nome: 'Ferramenta 3', imagem: 'https://miro.medium.com/1*sOhbhWnnmBx7TxHddLPW0Q.png' },
+    { nome: 'VPN', imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPuSVpDkSWHQH68eOnBAhzT0fs4iEbThTW0A&s' },
+    { nome: 'NodeJS', imagem: 'https://cdn-icons-png.flaticon.com/512/919/919825.png' },
+    { nome: 'WireShark', imagem: 'https://miro.medium.com/1*sOhbhWnnmBx7TxHddLPW0Q.png' },
     { nome: 'Pentest', imagem: 'https://resh.com.br/wp-content/uploads/2022/08/imagem_pentest_post_resh-01-1-scaled-1.jpg' }
   ];
 
   paraQuem = [
     { titulo: 'Profissionais de TI', desc: 'Ambiente profissional', icon: 'cafe-outline' },
+    { titulo: 'Entusiastas Linux', desc: 'Ferramentas avançadas', icon: 'code-slash-outline' },
     { titulo: 'Pentesters', desc: 'Ferramentas de segurança', icon: 'shield-outline' },
     { titulo: 'Empresas', desc: 'Ambiente confiável', icon: 'business-outline' },
-    { titulo: 'Entusiastas Linux', desc: 'Ferramentas avançadas', icon: 'code-slash-outline' }
   ];
 
   porque = [
@@ -60,10 +60,9 @@ export class HomePage {
     }
   }
 
-  // 🚀 NAVEGAÇÃO PARA LOGIN
+  //  NAVEGAÇÃO PARA LOGIN
   irParaLogin() {
     this.router.navigate(['/tela-login']);
-    // ou: this.router.navigateByUrl('/tela-login');
   }
 
 }
