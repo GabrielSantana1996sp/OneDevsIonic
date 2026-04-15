@@ -37,8 +37,12 @@ jobs:
       - name: Create environment files
         run: |
           mkdir -p src/environments
-          echo "${{ secrets.FIREBASE_CONFIG }}" > src/environments/environment.ts
-          echo "${{ secrets.FIREBASE_CONFIG }}" > src/environments/environment.prod.ts
+          cat << 'EOF' > src/environments/environment.ts
+          ${{ secrets.FIREBASE_CONFIG }}
+          EOF
+          cat << 'EOF' > src/environments/environment.prod.ts
+          ${{ secrets.FIREBASE_CONFIG }}
+          EOF
 
       - name: Build Ionic Angular app
         run: npm run build -- --configuration production --base-href="/OneDevsIonic/"
