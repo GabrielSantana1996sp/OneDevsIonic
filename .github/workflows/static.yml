@@ -32,6 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Este passo cria a pasta e os arquivos que o Angular precisa para o build
+      # Ele usa o segredo que você vai configurar no GitHub
+      - name: Create environment files
+        run: |
+          mkdir -p src/environments
+          echo "${{ secrets.FIREBASE_CONFIG }}" > src/environments/environment.ts
+          echo "${{ secrets.FIREBASE_CONFIG }}" > src/environments/environment.prod.ts
+
       - name: Build Ionic Angular app
         run: npm run build -- --configuration production --base-href="/OneDevsIonic/"
 
@@ -41,6 +49,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Se o build do Ionic gerar na pasta dist/app, mude aqui. 
+          # Geralmente para Ionic é ./www ou ./dist/app-name
           path: ./www
 
       - name: Deploy to GitHub Pages
