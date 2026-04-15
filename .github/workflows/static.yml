@@ -38,10 +38,10 @@ jobs:
         run: |
           mkdir -p src/environments
           cat << 'EOF' > src/environments/environment.ts
-          ${{ secrets.FIREBASE_CONFIG }}
+          ${{ secrets.FIREBASE_PROD_FILE }}
           EOF
           cat << 'EOF' > src/environments/environment.prod.ts
-          ${{ secrets.FIREBASE_CONFIG }}
+          ${{ secrets.FIREBASE_PROD_FILE }}
           EOF
 
       - name: Build Ionic Angular app
