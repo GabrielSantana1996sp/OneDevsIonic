@@ -8,11 +8,11 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="filtroAtual" (ionChange)="carregarSugestoes()">
+      <ion-segment-button value="relevantes">
+        <ion-label>Relevantes</ion-label>
+      </ion-segment-button>
       <ion-segment-button value="recentes">
         <ion-label>Recentes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="populares">
-        <ion-label>Populares</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -47,17 +47,16 @@
     </ion-label>
 
     <ion-item lines="none" style="--background: transparent; padding: 0;">
-      <ion-select label="Filtrar por status" label-placement="floating" (ionChange)="filtrarStatus($event)">
-        <ion-select-option value="todos">Todos os comentários</ion-select-option>
-        <ion-select-option value="respondida">Respondidos</ion-select-option>
-        <ion-select-option value="pendente">Pendentes</ion-select-option>
+      <ion-select label="Filtrar por status" label-placement="floating" (ionChange)="mudarFiltro($event)">
+        <ion-select-option value="relevantes">Mais Relevantes</ion-select-option>
+        <ion-select-option value="recentes">Mais Recentes</ion-select-option>
       </ion-select>
     </ion-item>
   </div>
 
   <hr />
 
-  <div *ngIf="(sugestoes$ | async) as lista; else carregando">
+  <ng-container *ngIf="(sugestoes$ | async) as lista; else carregando">
 
     <ion-card *ngFor="let s of lista" class="ion-margin-bottom">
       <ion-card-header>
@@ -68,6 +67,7 @@
           <ion-label>
             <h3>{{ s.usuarioNome }}</h3>
             <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p style="color: orange;">⭐ {{ s.mediaEstrelas | number:'1.1-1' }}</p>
           </ion-label>
 
           <ion-badge slot="end" [color]="s.status === 'respondida' ? 'success' : 'warning'">
@@ -82,24 +82,32 @@
         </p>
 
         <div *ngIf="s.respostaAdm"
-             style="background: #f0f7ff; padding: 12px; border-left: 4px solid var(--ion-color-primary); margin-top: 15px; border-radius: 0 8px 8px 0;">
+              style="background: #f0f7ff; padding: 12px; border-left: 4px solid var(--ion-color-primary); margin-top: 15px; border-radius: 0 8px 8px 0;">
           <ion-label color="primary"><strong>Resposta do Suporte:</strong></ion-label>
           <p style="margin-top: 5px; font-style: italic;">{{ s.respostaAdm }}</p>
+        </div>
+
+        <div class="ion-margin-top" *ngIf="s.usuarioId === userId || usuarioLogado?.perfil === 'adm'">
+          <ion-button fill="clear" size="small" color="warning" (click)="abrirEditar(s)">
+            <ion-icon name="pencil-outline" slot="start"></ion-icon> Editar
+          </ion-button>
+          <ion-button fill="clear" size="small" color="danger" (click)="excluirSugestao(s.id)">
+            <ion-icon name="trash-outline" slot="start"></ion-icon> Apagar
+          </ion-button>
+          <ion-button fill="clear" size="small" color="primary" *ngIf="usuarioLogado?.perfil === 'adm'" (click)="responderSugestao(s)">
+            Responder
+          </ion-button>
         </div>
       </ion-card-content>
 
       <ion-footer>
-        <ion-row>
-          <ion-col>
-            <ion-button fill="clear" size="small" (click)="toggleCurtida(s)">
-              <ion-icon
-                slot="start"
-                [name]="s.usuariosCurtiram?.includes(userId) ? 'thumbs-up' : 'thumbs-up-outline'"
-                [color]="s.usuariosCurtiram?.includes(userId) ? 'primary' : 'medium'">
-              </ion-icon>
-              {{ s.curtidas }} pessoas acharam útil
-            </ion-button>
-          </ion-col>
+        <ion-row class="ion-justify-content-center">
+          <ion-text color="medium"><small>Avalie a relevância:</small></ion-text>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-button fill="clear" *ngFor="let n of [1,2,3,4,5]" (click)="avaliar(s, n)">
+            <ion-icon name="star-outline" color="warning"></ion-icon>
+          </ion-button>
         </ion-row>
       </ion-footer>
     </ion-card>
@@ -110,7 +118,7 @@
       </ion-text>
     </div>
 
-  </div>
+  </ng-container>
 
   <ng-template #carregando>
     <div class="ion-text-center ion-padding">

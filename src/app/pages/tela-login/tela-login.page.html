@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!-- seta que volta para a tela inicial  -->
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Login</ion-title>
@@ -12,29 +11,24 @@
 
   <div class="login-container">
 
-
     <h2>Entrar no OneDevs</h2>
-    <p>Faça login para fazer o dowload</p>
+    <p>Faça login para continuar</p>
 
-    <!-- CAMPO DE EMAIL  -->
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" [(ngModel)]="email"></ion-input>
     </ion-item>
 
-    <!-- CAMPO DE SENHA -->
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
       <ion-input type="password" [(ngModel)]="senha"></ion-input>
     </ion-item>
 
-    <!-- BOTÃO DO LOGIN -->
-    <ion-button expand="block" (click)="login()">
+    <ion-button expand="block" (click)="login()" class="ion-margin-top">
       Entrar
     </ion-button>
 
-    <!-- MENSAGEM SE CASO DER ERRO -->
-    <p class="erro" *ngIf="erro">{{erro}}</p>
+    <p class="erro" *ngIf="erro" style="color: red; text-align: center;">{{erro}}</p>
 
   </div>
 

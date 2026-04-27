@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { UsuarioService } from './../../services/usuarios';
 
 @Component({
   selector: 'app-tela-login',
@@ -17,7 +18,8 @@ export class TelaLoginPage {
 
   constructor(
     private router: Router,
-    private auth: Auth // Injeção necessária para o Firebase funcionar
+    private auth: Auth,
+    private usuarioService: UsuarioService 
   ) {}
 
   async login() {
@@ -31,16 +33,31 @@ export class TelaLoginPage {
     this.erro = ''; // Limpa o erro antes de tentar o login real
 
     try {
-      // NOVA FUNÇÃO: Logado com sucesso via Firebase
+      // Função: Logar no Firebase
       const res = await signInWithEmailAndPassword(this.auth, this.email, this.senha);
 
       console.log('Logado com sucesso:', res.user);
 
-      // redireciona para a tela de sugestões (ou a home '/')
-      this.router.navigate(['/sugestoes']);
+      // --- PARTE NOVA: VERIFICAR QUEM É O USUÁRIO ---
+      this.usuarioService.getUsuarioLogado().subscribe((dados: any) => {
+        
+        if (dados.status === 'desativado') {
+          this.erro = 'Sua conta está desativada!';
+          return;
+        }
+
+        // Se for ADM, vai para a tela de gerenciar usuários
+        if (dados.perfil === 'adm') {
+          this.router.navigate(['/usuarios']);
+        } else {
+          // redireciona para a tela de sugestões (usuário comum)
+          this.router.navigate(['/sugestoes']);
+        }
+      });
+      // ----------------------------------------------
 
     } catch (e: any) {
-      // se a senha ou email estiverem errados ou houver erro de rede
+      // se a senha ou email estiverem errados
       console.error(e);
       this.erro = 'Email ou senha inválidos!';
     }

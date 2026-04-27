@@ -1,54 +1,82 @@
 <ion-header>
-<ion-toolbar>
-  <ion-title>
-    Cadastro de Usuários
-  </ion-title>
-</ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastro de Usuários</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [formGroup]="cadastroUsuario">
+<ion-content class="ion-padding">
+  <form [formGroup]="formulario" (ngSubmit)="salvar()">
 
-    <!--Campo Nome-->
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
       <ion-input formControlName="nome" type="text"></ion-input>
     </ion-item>
-    <div *ngIf="cadastroUsuario.get('nome')?.invalid && cadastroUsuario.get('nome')?.touched">
+    <div *ngIf="formulario.get('nome')?.invalid && formulario.get('nome')?.touched">
       <ion-text color="danger">
-        <p *ngIf="cadastroUsuario.get('nome')?.hasError('required')">O nome é obrigatório</p>
+        <p *ngIf="formulario.get('nome')?.hasError('required')">O nome é obrigatório</p>
       </ion-text>
     </div>
 
-     <!--Campo Email-->
-    <ion-item>
+     <ion-item>
       <ion-label position="floating">E-mail</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
-    <div *ngIf="cadastroUsuario.get('email')?.invalid && cadastroUsuario.get('email')?.touched">
+    <div *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched">
       <ion-text color="danger">
-        <p *ngIf="cadastroUsuario.get('email')?.hasError('required')">O e-mail é obrigatório</p>
-        <p *ngIf="cadastroUsuario.get('email')?.hasError('email')">Digite um e-mail válido.</p>
+        <p *ngIf="formulario.get('email')?.hasError('required')">O e-mail é obrigatório</p>
+        <p *ngIf="formulario.get('email')?.hasError('email')">Digite um e-mail válido.</p>
       </ion-text>
     </div>
 
-    <!--Campo Senha-->
-    <ion-item>
+    <ion-item *ngIf="!idEditando">
       <ion-label position="floating">Senha</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
     </ion-item>
-        <div *ngIf="cadastroUsuario.get('senha')?.invalid && cadastroUsuario.get('senha')?.touched">
+    <div *ngIf="formulario.get('senha')?.invalid && formulario.get('senha')?.touched && !idEditando">
       <ion-text color="danger">
-        <p *ngIf="cadastroUsuario.get('senha')?.hasError('required')">A senha é obrigatória</p>
-        <p *ngIf="cadastroUsuario.get('senha')?.hasError('minlength')">A senha deve ter 8 caracteres</p>
+        <p *ngIf="formulario.get('senha')?.hasError('required')">A senha é obrigatória</p>
+        <p *ngIf="formulario.get('senha')?.hasError('minlength')">A senha deve ter 8 caracteres</p>
       </ion-text>
     </div>
 
-    <!--Botão-->
-    <ion-button expand="full" type="submit" [disabled]="cadastroUsuario.invalid">
-      Salvar
+    <ion-item *ngIf="eu?.perfil === 'adm'">
+      <ion-label>Perfil do Usuário</ion-label>
+      <ion-select formControlName="perfil">
+        <ion-select-option value="usuario">Usuário Comum</ion-select-option>
+        <ion-select-option value="adm">Administrador</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="formulario.invalid" class="ion-margin-top">
+      {{ idEditando ? 'Atualizar' : 'Salvar' }}
+    </ion-button>
+
+    <ion-button *ngIf="idEditando" expand="block" fill="clear" color="medium" (click)="idEditando = null; formulario.reset()">
+      Cancelar
     </ion-button>
 
   </form>
-</ion-content>
 
+  <hr *ngIf="eu?.perfil === 'adm'"/>
+
+  <ion-list *ngIf="eu?.perfil === 'adm'">
+    <ion-list-header>
+      <ion-label>Usuários Cadastrados</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let u of lista">
+      <ion-label>
+        <h2>{{ u.nome }}</h2>
+        <p>{{ u.email }} | <strong>{{ u.perfil }}</strong></p>
+        <p>Status: {{ u.status }}</p>
+      </ion-label>
+      
+      <ion-button slot="end" fill="clear" (click)="prepararEdicao(u)">
+        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" fill="clear" (click)="desativar(u.uid)">
+        <ion-icon name="power" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
