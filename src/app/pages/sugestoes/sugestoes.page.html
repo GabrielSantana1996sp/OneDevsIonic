@@ -1,130 +1,68 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+<ion-header>
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <div class="user-info-header" *ngIf="user">
+        <div class="avatar-circle-small">{{ user.displayName?.charAt(0) }}</div>
+        <ion-label>{{ user.displayName }}</ion-label>
+      </div>
     </ion-buttons>
-    <ion-title>Sugestões OneDevs</ion-title>
+
+    <ion-title>Comunidade OneDevs</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmarLogout()" color="danger">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-segment [(ngModel)]="filtroAtual" (ionChange)="carregarSugestoes()">
-      <ion-segment-button value="relevantes">
-        <ion-label>Relevantes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="recentes">
-        <ion-label>Recentes</ion-label>
-      </ion-segment-button>
+    <ion-segment [(ngModel)]="filtro" (ionChange)="aplicarFiltro()">
+      <ion-segment-button value="recentes"><ion-label>Recentes</ion-label></ion-segment-button>
+      <ion-segment-button value="populares"><ion-label>Populares</ion-label></ion-segment-button>
+      <ion-segment-button value="todos"><ion-label>Antigos</ion-label></ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  
+  <ion-card *ngFor="let s of listaSugestoes" class="sugestao-card">
+    <ion-item lines="none" class="card-header">
+      <div slot="start" class="avatar-circle">
+        {{ s.autor_nome?.charAt(0).toUpperCase() }}
+      </div>
+      <ion-label>
+        <h3>{{ s.autor_nome }}</h3>
+        <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
+      </ion-label>
 
-  <ion-card class="ion-no-margin ion-margin-bottom">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-textarea
-          placeholder="Como podemos melhorar o OneDevsOS?"
-          [(ngModel)]="novaSugestao"
-          rows="3"
-          auto-grow="true">
-        </ion-textarea>
-      </ion-item>
-      <ion-button
-        expand="block"
-        (click)="enviarSugestao()"
-        [disabled]="novaSugestao.length < 5"
-        class="ion-margin-top">
-        <ion-icon slot="start" name="send-outline"></ion-icon>
-        Enviar Sugestão
-      </ion-button>
+      
+      <ion-buttons slot="end" *ngIf="s.autor_id === user?.uid">
+        <ion-button (click)="prepararEdicao(s)">
+          <ion-icon slot="icon-only" name="create-outline" size="small"></ion-icon>
+        </ion-button>
+        <ion-button (click)="confirmarExclusao(s.id)" color="danger">
+          <ion-icon slot="icon-only" name="trash-outline" size="small"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-card-content class="card-body">
+      {{ s.texto }}
     </ion-card-content>
+
+    <ion-item lines="none" class="card-footer">
+      <ion-button fill="clear" (click)="votar(s)">
+        <ion-icon [name]="jaVotou(s) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
+        <ion-label>{{ s.votos || 0 }} curtidas</ion-label>
+      </ion-button>
+    </ion-item>
   </ion-card>
 
-  <div class="ion-padding-vertical">
-    <ion-label color="medium">
-      <h2>Comentários e Feedbacks</h2>
-    </ion-label>
-
-    <ion-item lines="none" style="--background: transparent; padding: 0;">
-      <ion-select label="Filtrar por status" label-placement="floating" (ionChange)="mudarFiltro($event)">
-        <ion-select-option value="relevantes">Mais Relevantes</ion-select-option>
-        <ion-select-option value="recentes">Mais Recentes</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </div>
-
-  <hr />
-
-  <ng-container *ngIf="(sugestoes$ | async) as lista; else carregando">
-
-    <ion-card *ngFor="let s of lista" class="ion-margin-bottom">
-      <ion-card-header>
-        <ion-item lines="none" style="--padding-start: 0;">
-          <ion-avatar slot="start" style="width: 32px; height: 32px;">
-            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>
-            <h3>{{ s.usuarioNome }}</h3>
-            <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
-            <p style="color: orange;">⭐ {{ s.mediaEstrelas | number:'1.1-1' }}</p>
-          </ion-label>
-
-          <ion-badge slot="end" [color]="s.status === 'respondida' ? 'success' : 'warning'">
-            {{ s.status === 'respondida' ? 'Respondido' : 'Pendente' }}
-          </ion-badge>
-        </ion-item>
-      </ion-card-header>
-
-      <ion-card-content>
-        <p style="color: var(--ion-color-dark); font-size: 1.1em;">
-          {{ s.texto }}
-        </p>
-
-        <div *ngIf="s.respostaAdm"
-              style="background: #f0f7ff; padding: 12px; border-left: 4px solid var(--ion-color-primary); margin-top: 15px; border-radius: 0 8px 8px 0;">
-          <ion-label color="primary"><strong>Resposta do Suporte:</strong></ion-label>
-          <p style="margin-top: 5px; font-style: italic;">{{ s.respostaAdm }}</p>
-        </div>
-
-        <div class="ion-margin-top" *ngIf="s.usuarioId === userId || usuarioLogado?.perfil === 'adm'">
-          <ion-button fill="clear" size="small" color="warning" (click)="abrirEditar(s)">
-            <ion-icon name="pencil-outline" slot="start"></ion-icon> Editar
-          </ion-button>
-          <ion-button fill="clear" size="small" color="danger" (click)="excluirSugestao(s.id)">
-            <ion-icon name="trash-outline" slot="start"></ion-icon> Apagar
-          </ion-button>
-          <ion-button fill="clear" size="small" color="primary" *ngIf="usuarioLogado?.perfil === 'adm'" (click)="responderSugestao(s)">
-            Responder
-          </ion-button>
-        </div>
-      </ion-card-content>
-
-      <ion-footer>
-        <ion-row class="ion-justify-content-center">
-          <ion-text color="medium"><small>Avalie a relevância:</small></ion-text>
-        </ion-row>
-        <ion-row class="ion-justify-content-center">
-          <ion-button fill="clear" *ngFor="let n of [1,2,3,4,5]" (click)="avaliar(s, n)">
-            <ion-icon name="star-outline" color="warning"></ion-icon>
-          </ion-button>
-        </ion-row>
-      </ion-footer>
-    </ion-card>
-
-    <div *ngIf="lista.length === 0" class="ion-text-center ion-padding">
-      <ion-text color="medium">
-        <p>Nenhuma sugestão encontrada para este filtro.</p>
-      </ion-text>
-    </div>
-
-  </ng-container>
-
-  <ng-template #carregando>
-    <div class="ion-text-center ion-padding">
-      <ion-spinner name="crescent"></ion-spinner>
-      <p>Carregando sugestões...</p>
-    </div>
-  </ng-template>
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="novaSugestao()">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
