@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Login</ion-title>
   </ion-toolbar>
@@ -10,26 +10,27 @@
 <ion-content class="ion-padding">
 
   <div class="login-container">
-
     <h2>Entrar no OneDevs</h2>
-    <p>Faça login para continuar</p>
 
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="email" placeholder="seu@email.com"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
-      <ion-input type="password" [(ngModel)]="senha"></ion-input>
+      <ion-input type="password" [(ngModel)]="senha" placeholder="Xiu..."></ion-input>
     </ion-item>
 
-    <ion-button expand="block" (click)="login()" class="ion-margin-top">
+    <ion-button expand="block" (click)="login()" class="btn-login ion-margin-top">
       Entrar
     </ion-button>
 
-    <p class="erro" *ngIf="erro" style="color: red; text-align: center;">{{erro}}</p>
+    <ion-button expand="block" fill="clear" (click)="irParaRegistrar()" class="btn-registrar">
+      Não tem uma conta? <span>Criar conta</span>
+    </ion-button>
 
+    <p class="erro" *ngIf="erro">{{erro}}</p>
   </div>
 
 </ion-content>
