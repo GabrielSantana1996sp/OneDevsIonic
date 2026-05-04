@@ -1,62 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../../services/usuarios';
+import { Component } from '@angular/core';
+import { AuthService } from "../../services/auth"
+import { Router } from '@angular/router';
+import { ToastController, LoadingController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'app-registrar',
   templateUrl: './registrar.page.html',
   styleUrls: ['./registrar.page.scss'],
   standalone: false,
 })
-export class RegistrarPage implements OnInit {
+export class RegistrarPage {
 
-  public formulario: FormGroup;
-  public lista: any[] = [];
-  public eu: any = null;
-  public idEditando: string | null = null;
+  nickname = ''; // Novo campo
+  email = '';
+  senha = '';
 
-  constructor(private fb: FormBuilder, private service: UsuarioService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
+  ) {}
 
-    this.formulario = this.fb.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(8)]],
-      perfil: ['usuario'] // Usuario padrão
-    });
-  }
-
-  ngOnInit() {
-
-    this.service.getUsuarioLogado().subscribe(dados => {
-      this.eu = dados;
-
-      // Se for perfil ADM para poder responder comentários.
-      if (this.eu?.perfil === 'adm') {
-        this.service.listarTodos().subscribe(todos => {
-          this.lista = todos;
-        });
-      }
-    });
-  }
-
-  async salvar() {
-    if (this.idEditando) {
-      await this.service.atualizar(this.idEditando, this.formulario.value);
-      this.idEditando = null;
-    } else {
-      await this.service.cadastrar(this.formulario.value);
+  async cadastrar() {
+    
+    if (!this.nickname || !this.email || !this.senha) {
+      this.presentToast('Preencha todos os campos corretamente', 'warning');
+      return;
     }
-    this.formulario.reset();
+
+    const loading = await this.loadingCtrl.create({ message: 'Criando conta...' });
+    await loading.present();
+
+    try {
+      await this.authService.registrar(this.email, this.senha, this.nickname);
+
+      await loading.dismiss();
+      this.presentToast('Conta criada com sucesso!', 'success');
+      this.router.navigate(['/tela-login']);
+
+    } catch (error: any) {
+      await loading.dismiss();
+      let mensagem = 'Erro ao cadastrar';
+      if (error.code === 'auth/email-already-in-use') mensagem = 'Este e-mail já está em uso';
+      if (error.code === 'auth/weak-password') mensagem = 'A senha deve ter pelo menos 6 caracteres!';
+
+      this.presentToast(mensagem, 'danger');
+    }
   }
 
-
-  prepararEdicao(usuario: any) {
-    this.idEditando = usuario.uid;
-    this.formulario.patchValue(usuario);
-  }
-
-  // Função para desativar um usuário
-  async desativar(uid: string) {
-    await this.service.atualizar(uid, { status: 'desativado' });
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color
+    });
+    toast.present();
   }
 }

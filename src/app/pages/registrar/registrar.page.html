@@ -1,82 +1,32 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Cadastro de Usuários</ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Conta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="formulario" (ngSubmit)="salvar()">
+  <div class="register-container">
 
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
-      <ion-input formControlName="nome" type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="nickname" placeholder="Como quer ser chamado?"></ion-input>
     </ion-item>
-    <div *ngIf="formulario.get('nome')?.invalid && formulario.get('nome')?.touched">
-      <ion-text color="danger">
-        <p *ngIf="formulario.get('nome')?.hasError('required')">O nome é obrigatório</p>
-      </ion-text>
-    </div>
 
-     <ion-item>
-      <ion-label position="floating">E-mail</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" placeholder="exemplo@email.com"></ion-input>
     </ion-item>
-    <div *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched">
-      <ion-text color="danger">
-        <p *ngIf="formulario.get('email')?.hasError('required')">O e-mail é obrigatório</p>
-        <p *ngIf="formulario.get('email')?.hasError('email')">Digite um e-mail válido.</p>
-      </ion-text>
-    </div>
 
-    <ion-item *ngIf="!idEditando">
+    <ion-item>
       <ion-label position="floating">Senha</ion-label>
-      <ion-input formControlName="senha" type="password"></ion-input>
-    </ion-item>
-    <div *ngIf="formulario.get('senha')?.invalid && formulario.get('senha')?.touched && !idEditando">
-      <ion-text color="danger">
-        <p *ngIf="formulario.get('senha')?.hasError('required')">A senha é obrigatória</p>
-        <p *ngIf="formulario.get('senha')?.hasError('minlength')">A senha deve ter 8 caracteres</p>
-      </ion-text>
-    </div>
-
-    <ion-item *ngIf="eu?.perfil === 'adm'">
-      <ion-label>Perfil do Usuário</ion-label>
-      <ion-select formControlName="perfil">
-        <ion-select-option value="usuario">Usuário Comum</ion-select-option>
-        <ion-select-option value="adm">Administrador</ion-select-option>
-      </ion-select>
+      <ion-input type="password" [(ngModel)]="senha" placeholder="Xiu..."></ion-input>
     </ion-item>
 
-    <ion-button expand="block" type="submit" [disabled]="formulario.invalid" class="ion-margin-top">
-      {{ idEditando ? 'Atualizar' : 'Salvar' }}
+    <ion-button expand="block" (click)="cadastrar()" class="ion-margin-top">
+      Cadastrar
     </ion-button>
-
-    <ion-button *ngIf="idEditando" expand="block" fill="clear" color="medium" (click)="idEditando = null; formulario.reset()">
-      Cancelar
-    </ion-button>
-
-  </form>
-
-  <hr *ngIf="eu?.perfil === 'adm'"/>
-
-  <ion-list *ngIf="eu?.perfil === 'adm'">
-    <ion-list-header>
-      <ion-label>Usuários Cadastrados</ion-label>
-    </ion-list-header>
-
-    <ion-item *ngFor="let u of lista">
-      <ion-label>
-        <h2>{{ u.nome }}</h2>
-        <p>{{ u.email }} | <strong>{{ u.perfil }}</strong></p>
-        <p>Status: {{ u.status }}</p>
-      </ion-label>
-      
-      <ion-button slot="end" fill="clear" (click)="prepararEdicao(u)">
-        <ion-icon name="pencil" slot="icon-only" color="warning"></ion-icon>
-      </ion-button>
-      <ion-button slot="end" fill="clear" (click)="desativar(u.uid)">
-        <ion-icon name="power" slot="icon-only" color="danger"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+  </div>
 </ion-content>

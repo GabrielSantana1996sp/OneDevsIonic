@@ -7,109 +7,85 @@ ion-content {
 /* HEADER */
 ion-toolbar {
   --background: #0d1b2a;
+  --border-style: none;
 }
 
 ion-title {
-  color: white;
+  color: #4fc3f7;
+  font-weight: bold;
 }
 
-/* FORM CONTAINER */
-form {
-  max-width: 500px;
-  margin: 0 auto;
+/* CONTAINER CENTRAL (Estilo OneDevs) */
+.register-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px 20px;
+  background: rgba(13, 27, 42, 0.9);
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 15px rgba(79, 195, 247, 0.1);
+  border: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.register-container h2 {
+  color: #4fc3f7;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.register-container p {
+  color: #e0e0e0;
+  opacity: 0.7;
+  margin-bottom: 25px;
 }
 
 /* INPUTS */
 ion-item {
-  --background: transparent;
+  --background: rgba(255, 255, 255, 0.05);
   --border-color: #4fc3f7;
+  --highlight-height: 0;
+  --padding-start: 12px;
+  margin-bottom: 18px;
   border-radius: 8px;
-  margin-bottom: 10px;
-}
+  border: 1px solid rgba(79, 195, 247, 0.3);
 
-/* LABELS */
-ion-label {
-  color: #4fc3f7 !important;
-}
+  ion-label {
+    color: #4fc3f7 !important;
+  }
 
-/* INPUT TEXT */
-ion-input, ion-select {
-  color: white;
-}
-
-/* ERROS */
-ion-text p {
-  font-size: 12px;
-  margin: 5px 0 10px 5px;
+  ion-input {
+    --color: white;
+    font-size: 15px;
+  }
 }
 
 /* BOTÃO PRINCIPAL */
-ion-button {
+.btn-cadastrar {
   --background: #4fc3f7;
-  --color: black;
+  --color: #0d1b2a;
+  --border-radius: 8px;
   font-weight: bold;
-  border-radius: 8px;
-}
-
-ion-button:hover {
-  --background: #29b6f6;
-}
-
-/* BOTÃO CANCELAR */
-ion-button[color="medium"] {
-  --color: #aaa;
-}
-
-/* LISTA DE USUÁRIOS */
-ion-list {
-  background: transparent;
-}
-
-/* HEADER DA LISTA */
-ion-list-header {
-  color: #4fc3f7;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* ITEM DA LISTA */
-ion-item {
-  --background: #0d1b2a;
-  border-radius: 10px;
-  margin: 8px 0;
-  padding: 10px;
-}
-
-/* TEXTO DA LISTA */
-ion-item h2 {
-  color: #4fc3f7;
+  height: 48px;
   font-size: 16px;
+  margin-top: 20px;
 }
 
-ion-item p {
-  color: #e0e0e0;
-  font-size: 13px;
+/* BOTÃO VOLTAR */
+.btn-voltar {
+  --color: #ffffff;
+  font-size: 14px;
+  margin-top: 10px;
+  text-transform: none;
+
+  span {
+    color: #4fc3f7;
+    margin-left: 5px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
 
-/* STATUS */
-ion-item p strong {
-  color: #4fc3f7;
-}
-
-/* BOTÕES DA LISTA */
-ion-item ion-button {
+/* BOTÃO VOLTAR NO HEADER */
+ion-back-button {
   --color: #4fc3f7;
-}
-
-/* ÍCONES */
-ion-icon {
-  font-size: 20px;
-}
-
-/* DIVISOR */
-hr {
-  border: none;
-  height: 1px;
-  background: #1e2a38;
-  margin: 20px 0;
 }
