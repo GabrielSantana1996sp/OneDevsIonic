@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from './../../services/usuarios';
+import { UsuarioService } from '../../services/usuarios';
 
 @Component({
   selector: 'app-usuarios',
-  templateUrl: './usuarios.page.html',
+  templateUrl: './registrar.page.html',
+  styleUrls: ['./registrar.page.scss'],
   standalone: false,
 })
-export class UsuariosPage implements OnInit {
+export class RegistrarPage implements OnInit {
 
   public formulario: FormGroup;
-  public lista: any[] = []; 
-  public eu: any = null;         
+  public lista: any[] = [];
+  public eu: any = null;
   public idEditando: string | null = null;
 
   constructor(private fb: FormBuilder, private service: UsuarioService) {
@@ -25,10 +26,10 @@ export class UsuariosPage implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.service.getUsuarioLogado().subscribe(dados => {
       this.eu = dados;
-      
+
       // Se for perfil ADM para poder responder comentários.
       if (this.eu?.perfil === 'adm') {
         this.service.listarTodos().subscribe(todos => {

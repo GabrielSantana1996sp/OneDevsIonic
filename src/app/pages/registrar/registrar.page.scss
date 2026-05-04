@@ -1,0 +1,115 @@
+/* FUNDO PADRÃO */
+ion-content {
+  --background: linear-gradient(#0d1b2a, #000000);
+  color: white;
+}
+
+/* HEADER */
+ion-toolbar {
+  --background: #0d1b2a;
+}
+
+ion-title {
+  color: white;
+}
+
+/* FORM CONTAINER */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* INPUTS */
+ion-item {
+  --background: transparent;
+  --border-color: #4fc3f7;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* LABELS */
+ion-label {
+  color: #4fc3f7 !important;
+}
+
+/* INPUT TEXT */
+ion-input, ion-select {
+  color: white;
+}
+
+/* ERROS */
+ion-text p {
+  font-size: 12px;
+  margin: 5px 0 10px 5px;
+}
+
+/* BOTÃO PRINCIPAL */
+ion-button {
+  --background: #4fc3f7;
+  --color: black;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+ion-button:hover {
+  --background: #29b6f6;
+}
+
+/* BOTÃO CANCELAR */
+ion-button[color="medium"] {
+  --color: #aaa;
+}
+
+/* LISTA DE USUÁRIOS */
+ion-list {
+  background: transparent;
+}
+
+/* HEADER DA LISTA */
+ion-list-header {
+  color: #4fc3f7;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ITEM DA LISTA */
+ion-item {
+  --background: #0d1b2a;
+  border-radius: 10px;
+  margin: 8px 0;
+  padding: 10px;
+}
+
+/* TEXTO DA LISTA */
+ion-item h2 {
+  color: #4fc3f7;
+  font-size: 16px;
+}
+
+ion-item p {
+  color: #e0e0e0;
+  font-size: 13px;
+}
+
+/* STATUS */
+ion-item p strong {
+  color: #4fc3f7;
+}
+
+/* BOTÕES DA LISTA */
+ion-item ion-button {
+  --color: #4fc3f7;
+}
+
+/* ÍCONES */
+ion-icon {
+  font-size: 20px;
+}
+
+/* DIVISOR */
+hr {
+  border: none;
+  height: 1px;
+  background: #1e2a38;
+  margin: 20px 0;
+}

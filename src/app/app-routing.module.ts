@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -12,15 +12,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'usuarios',
-    loadChildren: () => import('./pages/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+    path: 'registrar',
+    loadChildren: () => import('./pages/registrar/registrar.module').then(m => m.RegistrarPageModule)
   },
   {
     path: 'tela-login',
-    loadChildren: () => import('./pages/tela-login/tela-login.module').then( m => m.TelaLoginPageModule)
-  },  {
+    loadChildren: () => import('./pages/tela-login/tela-login.module').then(m => m.TelaLoginPageModule)
+  },
+  {
     path: 'sugestoes',
-    loadChildren: () => import('./pages/sugestoes/sugestoes.module').then( m => m.SugestoesPageModule)
+    loadChildren: () => import('./pages/sugestoes/sugestoes.module').then(m => m.SugestoesPageModule)
   },
 
 ];
