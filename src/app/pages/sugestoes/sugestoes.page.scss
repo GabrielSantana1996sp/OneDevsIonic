@@ -1,0 +1,118 @@
+ion-content {
+  --background: linear-gradient(#0d1b2a, #000000);
+  color: white;
+}
+
+/* HEADER */
+ion-toolbar {
+  --background: #0d1b2a;
+}
+
+ion-title {
+  color: white;
+}
+
+ion-segment {
+  --background: transparent;
+}
+
+ion-segment-button {
+  --background: transparent;
+  --background-checked: #4fc3f7;
+
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
+ion-segment-button ion-label {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+ion-segment-button.segment-button-checked ion-label {
+  color: #0d1b2a !important;
+  font-weight: bold;
+}
+
+ion-card {
+  background: #0d1b2a;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(79, 195, 247, 0.2);
+  color: white;
+}
+
+ion-textarea {
+  color: white;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: #4fc3f7;
+  border-radius: 8px;
+}
+
+ion-label {
+  color: #4fc3f7 !important;
+}
+
+ion-input {
+  color: white;
+}
+
+ion-button {
+  --background: #4fc3f7;
+  --color: black;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+ion-button:hover {
+  --background: #29b6f6;
+}
+
+ion-button[fill="clear"] {
+  --color: #4fc3f7;
+}
+
+ion-card-content p {
+  color: #e0e0e0;
+}
+
+.resposta-admin {
+  background: #08131f;
+  padding: 12px;
+  border-left: 4px solid #4fc3f7;
+  margin-top: 15px;
+  border-radius: 0 8px 8px 0;
+}
+
+ion-badge {
+  font-weight: bold;
+}
+
+ion-avatar img {
+  border-radius: 50%;
+}
+
+ion-icon[name="star-outline"] {
+  font-size: 20px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: #1e2a38;
+  margin: 20px 0;
+}
+
+.ion-text-center {
+  color: #aaa;
+}
+
+ion-spinner {
+  color: #4fc3f7;
+}
+
+ion-back-button {
+  --color: #4fc3f7;
+}
