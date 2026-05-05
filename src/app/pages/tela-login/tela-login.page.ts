@@ -44,6 +44,16 @@ export class TelaLoginPage {
     }
   }
 
+    //Login com o Github
+  async entrarComGithub(){
+    try {
+      await this.authService.loginGithub();
+      this.router.navigate(['/sugestoes']);
+    } catch (error) {
+      this.erro = 'Erro ao entrar com o Github';
+    }
+  }
+
   irParaRegistrar(){
     this.router.navigate(['/registrar']);
   }

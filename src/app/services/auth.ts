@@ -8,7 +8,8 @@ import {
   GoogleAuthProvider,
   signOut,
   updateProfile,
-  authState
+  authState,
+  GithubAuthProvider
 } from '@angular/fire/auth';
 
 @Injectable({
@@ -32,7 +33,7 @@ export class AuthService {
     });
   }
 
-  //LOGIN COM O GOOGLE 
+  //LOGIN COM O GOOGLE
   async loginGoogle() {
     const provider = new GoogleAuthProvider();
     const credencial = await signInWithPopup(this.auth, provider);
@@ -40,6 +41,14 @@ export class AuthService {
 
     return credencial;
   }
+
+  //LOGIN COM GITHUB
+    async loginGithub() {
+    const provider = new GithubAuthProvider();
+    const credencial = await signInWithPopup(this.auth, provider);
+    return credencial;
+  }
+
 
 
   logout() {
