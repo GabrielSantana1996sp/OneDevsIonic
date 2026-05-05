@@ -1,4 +1,4 @@
-/* FUNDO PADRÃO */
+/* FUNDO */
 ion-content {
   --background: linear-gradient(#0d1b2a, #000000);
   color: white;
@@ -15,7 +15,7 @@ ion-title {
   font-weight: bold;
 }
 
-/* CONTAINER CENTRAL (Estilo OneDevs) */
+/* CONTAINER */
 .register-container {
   max-width: 400px;
   margin: 60px auto;
@@ -23,20 +23,15 @@ ion-title {
   background: rgba(13, 27, 42, 0.9);
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 15px rgba(79, 195, 247, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+              0 0 15px rgba(79, 195, 247, 0.1);
   border: 1px solid rgba(79, 195, 247, 0.2);
 }
 
 .register-container h2 {
   color: #4fc3f7;
   font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.register-container p {
-  color: #e0e0e0;
-  opacity: 0.7;
-  margin-bottom: 25px;
+  margin-bottom: 24px; /* 👈 mais espaço */
 }
 
 /* INPUTS */
@@ -45,21 +40,28 @@ ion-item {
   --border-color: #4fc3f7;
   --highlight-height: 0;
   --padding-start: 12px;
+
+  /* 👇 resolve o problema do espaço */
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+
   margin-bottom: 18px;
   border-radius: 8px;
   border: 1px solid rgba(79, 195, 247, 0.3);
-
-  ion-label {
-    color: #4fc3f7 !important;
-  }
-
-  ion-input {
-    --color: white;
-    font-size: 15px;
-  }
 }
 
-/* BOTÃO PRINCIPAL */
+ion-label {
+  color: #4fc3f7 !important;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+ion-input {
+  --color: white;
+  font-size: 15px;
+}
+
+/* BOTÃO */
 .btn-cadastrar {
   --background: #4fc3f7;
   --color: #0d1b2a;
@@ -67,25 +69,9 @@ ion-item {
   font-weight: bold;
   height: 48px;
   font-size: 16px;
-  margin-top: 20px;
 }
 
-/* BOTÃO VOLTAR */
-.btn-voltar {
-  --color: #ffffff;
-  font-size: 14px;
-  margin-top: 10px;
-  text-transform: none;
-
-  span {
-    color: #4fc3f7;
-    margin-left: 5px;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-}
-
-/* BOTÃO VOLTAR NO HEADER */
+/* VOLTAR */
 ion-back-button {
   --color: #4fc3f7;
 }
