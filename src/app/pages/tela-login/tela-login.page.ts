@@ -34,6 +34,16 @@ export class TelaLoginPage {
     }
   }
 
+  //Login com o GOOGLE
+  async entrarComGoogle(){
+    try {
+      await this.authService.loginGoogle();
+      this.router.navigate(['/sugestoes']);
+    } catch (error) {
+      this.erro = 'Erro ao entrar com o Google';
+    }
+  }
+
   irParaRegistrar(){
     this.router.navigate(['/registrar']);
   }

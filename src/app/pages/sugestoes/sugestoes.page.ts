@@ -21,11 +21,19 @@ export class SugestoesPage implements OnInit {
     private router: Router,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.user = this.authService.getUsuarioAtual();
-    this.carregarDados();
+    
+    this.authService.getUsuarioObservable().subscribe(user => {
+      this.user = user;
+      if (this.user) {
+        this.carregarDados();
+      } else {
+        
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   carregarDados() {
@@ -38,27 +46,61 @@ export class SugestoesPage implements OnInit {
     this.carregarDados();
   }
 
-  async novaSugestao() {
-    const alert = await this.alertCtrl.create({
-      header: 'Nova Sugestão',
-      inputs: [{ name: 'comentario', type: 'textarea', placeholder: 'Sua ideia para o OneDevs...' }],
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        { text: 'Enviar', handler: (data) => { if (data.comentario) this.enviarDados(data.comentario); } }
-      ]
-    });
-    await alert.present();
+async novaSugestao() {
+ 
+  if (!this.user) {
+    this.presentToast('Aguarde o carregamento do perfil...', 'warning');
+    return;
   }
 
-  async enviarDados(texto: string) {
-    try {
-      await this.sugestoesService.adicionarSugestao(texto, this.user);
-      this.presentToast('Sugestão enviada!', 'success');
-    } catch (e) {
-      this.presentToast('Erro ao enviar.', 'danger');
+  const alert = await this.alertCtrl.create({
+    header: 'Nova Sugestão',
+    inputs: [
+      { 
+        name: 'comentario', 
+        type: 'textarea', 
+        placeholder: 'Sua ideia para o OneDevs...' 
+      }
+    ],
+    buttons: [
+      { text: 'Cancelar', role: 'cancel' },
+      { 
+        text: 'Enviar', 
+        handler: (data) => { 
+          
+          if (data.comentario && data.comentario.trim() !== '') {
+            this.enviarDados(data.comentario); 
+          } else {
+            this.presentToast('O comentário não pode estar vazio.', 'warning');
+          }
+        } 
+      }
+    ]
+  });
+  await alert.present();
+}
+
+async enviarDados(texto: string) {
+  try {
+    
+    await this.sugestoesService.adicionarSugestao(texto, this.user);
+    
+    this.presentToast('Sugestão enviada com sucesso!', 'success');
+    
+    
+    this.carregarDados(); 
+    
+  } catch (error: any) {
+    console.error('Erro ao gravar no Firebase:', error);
+    
+   
+    if (error.code === 'permission-denied') {
+      this.presentToast('Erro de permissão no Firestore. Verifique as Regras!', 'danger');
+    } else {
+      this.presentToast('Erro ao enviar. Tente novamente.', 'danger');
     }
   }
-
+}
 
   async prepararEdicao(sugestao: any) {
     const alert = await this.alertCtrl.create({
@@ -66,12 +108,12 @@ export class SugestoesPage implements OnInit {
       inputs: [{ name: 'novoTexto', type: 'textarea', value: sugestao.texto }],
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
-        { 
-          text: 'Salvar', 
+        {
+          text: 'Salvar',
           handler: (data) => {
             this.sugestoesService.editarSugestao(sugestao.id, data.novoTexto);
             this.presentToast('Atualizado!', 'success');
-          } 
+          }
         }
       ]
     });
@@ -85,12 +127,12 @@ export class SugestoesPage implements OnInit {
       message: 'Tem certeza que deseja apagar?',
       buttons: [
         { text: 'Não', role: 'cancel' },
-        { 
-          text: 'Sim', 
+        {
+          text: 'Sim',
           handler: () => {
             this.sugestoesService.excluirSugestao(id);
             this.presentToast('Excluído!', 'medium');
-          } 
+          }
         }
       ]
     });
@@ -112,12 +154,12 @@ export class SugestoesPage implements OnInit {
       message: 'Deseja desconectar?',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
-        { 
-          text: 'Sair', 
+        {
+          text: 'Sair',
           handler: async () => {
             await this.authService.logout();
-            this.router.navigate(['/home']); 
-          } 
+            this.router.navigate(['/home']);
+          }
         }
       ]
     });

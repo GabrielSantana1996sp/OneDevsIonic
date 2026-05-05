@@ -2,7 +2,13 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <div class="user-info-header" *ngIf="user">
-        <div class="avatar-circle-small">{{ user.displayName?.charAt(0) }}</div>
+
+        <!-- Círculo de Avatar que alterna entre Foto ou Inicial -->
+        <div class="avatar-circle-small">
+          <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar-img-small" />
+          <span *ngIf="!user.photoURL">{{ user.displayName?.charAt(0) }}</span>
+        </div>
+
         <ion-label>{{ user.displayName }}</ion-label>
       </div>
     </ion-buttons>
@@ -26,7 +32,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  
+
   <ion-card *ngFor="let s of listaSugestoes" class="sugestao-card">
     <ion-item lines="none" class="card-header">
       <div slot="start" class="avatar-circle">
@@ -37,7 +43,7 @@
         <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
       </ion-label>
 
-      
+
       <ion-buttons slot="end" *ngIf="s.autor_id === user?.uid">
         <ion-button (click)="prepararEdicao(s)">
           <ion-icon slot="icon-only" name="create-outline" size="small"></ion-icon>

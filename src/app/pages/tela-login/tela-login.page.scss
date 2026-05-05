@@ -71,6 +71,25 @@ ion-input {
   font-size: 16px;
 }
 
+/*LOGIN SOCIAL*/
+
+.social-login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-google {
+  --background: #fff;
+  --border-color: #fff;
+  --color: #000000;
+  --border-radius: 8px;
+  font-weight: bold;
+  height: 48px;
+  font-size: 16px;
+}
+
 /* BOTÃO REGISTRO */
 .btn-registrar {
   --color: #ffffff;

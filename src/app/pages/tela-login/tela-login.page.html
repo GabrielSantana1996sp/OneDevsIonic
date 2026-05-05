@@ -25,7 +25,17 @@
     <ion-button expand="block" (click)="login()" class="btn-login ion-margin-top">
       Entrar
     </ion-button>
+    <div class="ion-text-center ion-margin-vertical">
+      <p style="color: #888;">Ou entre com</p>
+    </div>
 
+    <div class="social-login-container">
+      <!-- BOTÃO GOOGLE -->
+      <ion-button expand="block" fill="outline" (click)="entrarComGoogle()" class="btn-google">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Google
+      </ion-button>
+    </div>
     <ion-button expand="block" fill="clear" (click)="irParaRegistrar()" class="btn-registrar">
       Não tem uma conta? <span>Criar conta</span>
     </ion-button>
