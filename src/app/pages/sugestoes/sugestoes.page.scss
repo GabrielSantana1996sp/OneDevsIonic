@@ -1,11 +1,9 @@
-/* --- FUNDO --- */
 ion-content {
   --background: linear-gradient(#0d1b2a, #000000);
   color: white;
   --padding-bottom: 80px;
 }
 
-/* --- HEADER & TOOLBAR --- */
 ion-toolbar {
   --background: #0d1b2a;
   --color: white;
@@ -29,6 +27,13 @@ ion-toolbar {
   justify-content: center;
   font-weight: bold;
   font-size: 0.8rem;
+}
+
+.avatar-img-small {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .user-name-header {
@@ -69,18 +74,18 @@ ion-segment-button.segment-button-checked ion-label {
   font-weight: bold;
 }
 
-/* --- CARDS --- */
 ion-card {
   background: #0d1b2a;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   margin-bottom: 16px;
   border: 1px solid rgba(79, 195, 247, 0.1);
+  overflow: hidden;
 }
 
-.card-header-item {
+.card-header {
+  --background: transparent !important;
   --padding-start: 12px;
-  --background: transparent;
 }
 
 .avatar-circle {
@@ -96,71 +101,50 @@ ion-card {
   font-weight: bold;
 }
 
-.author-name {
-  color: #4fc3f7 !important;
+.card-header h3 {
+  color: #4fc3f7;
   margin: 0;
   font-weight: bold;
 }
 
-.post-date {
-  color: #8a97a5 !important;
+.card-header p {
+  color: #8a97a5;
   font-size: 0.75rem;
+  margin: 2px 0 0;
 }
 
 .card-body {
   color: #e0e0e0;
   font-size: 1rem;
   line-height: 1.4;
-  padding-top: 0;
+  padding: 10px 16px;
 }
 
-/* --- BOTÃO DE CURTIR --- */
-.card-footer-item {
+.card-footer {
+  --background: transparent !important;
+  padding-left: 12px;
+}
+
+.card-footer ion-button {
   --background: transparent;
-}
-
-.btn-like {
-  --background: #4fc3f7;
-  --border-radius: 8px;
   --box-shadow: none;
-  height: 36px;
-  margin: 8px 0;
 }
 
-.label-votos {
-  color: #0d1b2a !important;
-  font-weight: bold;
+.card-footer ion-label {
+  color: #4fc3f7 !important;
   margin-left: 6px;
+  font-weight: 500;
 }
 
-.btn-like ion-icon {
+.card-footer ion-icon {
   font-size: 1.2rem;
 }
 
-/* --- BOTÕES DE AÇÃO (EDITAR/EXCLUIR) --- */
-.btn-action {
+.card-header ion-button {
   --color: #4fc3f7;
 }
 
-/* --- FAB BUTTON --- */
 ion-fab-button {
   --background: #4fc3f7;
   --color: #0d1b2a;
-}
-
-/* --- AJUSTE PARA TEMA CLARO (apenas cards) --- */
-@media (prefers-color-scheme: light) {
-  ion-card {
-    background: #ffffff;
-    border: 1px solid rgba(79, 195, 247, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  }
-
-  .card-body {
-    color: #333;
-  }
-
-  .post-date {
-    color: #555 !important;
-  }
 }

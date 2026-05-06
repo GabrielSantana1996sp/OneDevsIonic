@@ -1,10 +1,30 @@
-/* FUNDO */
+html, body {
+  color-scheme: dark;
+  background: #0d1b2a;
+  color: #ffffff;
+}
+
+:root {
+  --ion-background-color: transparent !important;
+  --ion-text-color: #ffffff !important;
+
+  --ion-card-background: #0d1b2a !important;
+  --ion-item-background: transparent !important;
+
+  --ion-toolbar-background: #0d1b2a !important;
+  --ion-toolbar-color: #4fc3f7 !important;
+
+  --ion-color-primary: #4fc3f7 !important;
+  --ion-color-primary-contrast: #000000 !important;
+}
+
+
 ion-content {
   --background: linear-gradient(#0d1b2a, #000);
   color: white;
+  --padding-bottom: 80px;
 }
 
-/* HEADER */
 ion-toolbar {
   --background: #0d1b2a;
 }
@@ -13,7 +33,6 @@ ion-title {
   color: #4fc3f7;
 }
 
-/* BOTÕES */
 ion-button {
   --background: #4fc3f7;
   --color: black;
@@ -21,7 +40,6 @@ ion-button {
   border-radius: 20px;
 }
 
-/* CARDS */
 ion-card {
   background: #0d1b2a;
   border-radius: 16px;
@@ -36,20 +54,18 @@ ion-card#sobre ion-item {
   border-radius: 10px;
 }
 
-/* LISTA */
 ion-item {
   --background: transparent;
   border-radius: 12px;
   margin: 6px 10px;
+  color: white;
 }
 
-/* TÍTULOS */
 .section-title {
   color: #4fc3f7;
   margin-left: 16px;
 }
 
-/* ICONES */
 ion-icon {
   color: #4fc3f7;
 }
@@ -58,7 +74,6 @@ ion-fab-button ion-icon {
   color: black !important;
 }
 
-/* SCROLL HORIZONTAL (CHAVE DO APP STYLE) */
 .horizontal-scroll {
   display: flex;
   overflow-x: auto;
@@ -70,8 +85,7 @@ ion-fab-button ion-icon {
   display: none;
 }
 
-/* CARDS DO SCROLL */
- .tool-card {
+.tool-card {
   width: 140px;
   min-width: 140px;
   max-width: 140px;
@@ -87,20 +101,13 @@ ion-fab-button ion-icon {
   border-radius: 12px 12px 0 0;
 }
 
-
-/* IMAGENS */
 ion-card img {
   width: 100%;
   border-radius: 12px;
 }
 
-/* FAB */
 ion-fab-button {
   --background: #4fc3f7;
   --color: black;
 }
 
-/* ESPAÇO FINAL */
-ion-content {
-  --padding-bottom: 80px;
-}

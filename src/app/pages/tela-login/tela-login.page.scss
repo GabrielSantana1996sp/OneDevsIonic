@@ -1,10 +1,9 @@
-/* FUNDO */
+
 ion-content {
   --background: linear-gradient(#0d1b2a, #000000);
   color: white;
 }
 
-/* HEADER */
 ion-toolbar {
   --background: #0d1b2a;
   --border-style: none;
@@ -15,7 +14,6 @@ ion-title {
   font-weight: bold;
 }
 
-/* CONTAINER */
 .login-container {
   max-width: 400px;
   margin: 60px auto;
@@ -31,91 +29,123 @@ ion-title {
 .login-container h2 {
   color: #4fc3f7;
   font-size: 24px;
-  margin-bottom: 24px; /* mais espaço */
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
-/* INPUTS */
 ion-item {
   --background: rgba(255, 255, 255, 0.05);
   --border-color: #4fc3f7;
   --highlight-height: 0;
-  --padding-start: 12px;
 
-  /* 👇 resolve o problema do espaço */
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+  --inner-padding-top: 18px;
+  --inner-padding-bottom: 10px;
+  --padding-start: 14px;
 
   margin-bottom: 18px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid rgba(79, 195, 247, 0.3);
+
+  min-height: 70px;
 }
 
 ion-label {
   color: #4fc3f7 !important;
-  margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 13px;
+  transform: translateY(6px);
 }
 
 ion-input {
   --color: white;
   font-size: 15px;
+  margin-top: 6px;
 }
 
-/* BOTÃO LOGIN */
 .btn-login {
   --background: #4fc3f7;
   --color: #0d1b2a;
-  --border-radius: 8px;
+  --border-radius: 10px;
   font-weight: bold;
-  height: 48px;
+  height: 50px;
   font-size: 16px;
+  margin-top: 10px;
 }
 
-/*LOGIN SOCIAL*/
+.ion-text-center p {
+  color: #888;
+  font-size: 14px;
+}
 
+/* LOGIN SOCIAL */
 .social-login-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   margin-top: 20px;
 }
 
-.btn-google {
-  --background: #fff;
-  --border-color: #fff;
-  --color: #000000;
-  --border-radius: 8px;
-  font-weight: bold;
-  height: 48px;
-  font-size: 16px;
-}
-
+.btn-google,
 .btn-github {
-  --background: #fff;
-  --border-color: #fff;
-  --color: #000000;
-  --border-radius: 8px;
-  font-weight: bold;
-  height: 48px;
-  font-size: 16px;
+  --border-radius: 10px;
+  font-weight: 600;
+  height: 50px;
+  font-size: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition: all 0.25s ease;
 }
 
-/* BOTÃO REGISTRO */
+/* GOOGLE */
+.btn-google {
+  --background: #ffffff;
+  --color: #000;
+  --border-color: #ffffff;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* GITHUB */
+.btn-github {
+  --background: #1f1f1f;
+  --color: #ffffff;
+  --border-color: #1f1f1f;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.btn-google:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(255,255,255,0.2);
+}
+
+.btn-github:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
+
+.btn-google:active,
+.btn-github:active {
+  transform: scale(0.97);
+}
+
 .btn-registrar {
   --color: #ffffff;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 12px;
   text-transform: none;
-
-  span {
-    color: #4fc3f7;
-    margin-left: 5px;
-    font-weight: bold;
-    text-decoration: underline;
-  }
 }
 
-/* ERRO */
+.btn-registrar span {
+  color: #4fc3f7;
+  margin-left: 5px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .erro {
   color: #ff4d4d !important;
   margin-top: 15px;
@@ -126,7 +156,6 @@ ion-input {
   border-radius: 5px;
 }
 
-/* VOLTAR */
 ion-back-button {
   --color: #4fc3f7;
 }

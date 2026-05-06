@@ -1,10 +1,8 @@
-/* FUNDO */
 ion-content {
   --background: linear-gradient(#0d1b2a, #000000);
   color: white;
 }
 
-/* HEADER */
 ion-toolbar {
   --background: #0d1b2a;
   --border-style: none;
@@ -15,7 +13,6 @@ ion-title {
   font-weight: bold;
 }
 
-/* CONTAINER */
 .register-container {
   max-width: 400px;
   margin: 60px auto;
@@ -31,47 +28,49 @@ ion-title {
 .register-container h2 {
   color: #4fc3f7;
   font-size: 24px;
-  margin-bottom: 24px; /* 👈 mais espaço */
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
-/* INPUTS */
 ion-item {
   --background: rgba(255, 255, 255, 0.05);
   --border-color: #4fc3f7;
   --highlight-height: 0;
-  --padding-start: 12px;
 
-  /* 👇 resolve o problema do espaço */
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+  /* 👇 espaçamento interno REAL */
+  --inner-padding-top: 18px;
+  --inner-padding-bottom: 10px;
+  --padding-start: 14px;
 
   margin-bottom: 18px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid rgba(79, 195, 247, 0.3);
+
+  min-height: 70px;
 }
 
 ion-label {
   color: #4fc3f7 !important;
-  margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 13px;
+  transform: translateY(6px);
 }
 
 ion-input {
   --color: white;
   font-size: 15px;
+  margin-top: 6px;
 }
 
-/* BOTÃO */
 .btn-cadastrar {
   --background: #4fc3f7;
   --color: #0d1b2a;
-  --border-radius: 8px;
+  --border-radius: 10px;
   font-weight: bold;
-  height: 48px;
+  height: 50px;
   font-size: 16px;
+  margin-top: 10px;
 }
 
-/* VOLTAR */
 ion-back-button {
   --color: #4fc3f7;
 }
