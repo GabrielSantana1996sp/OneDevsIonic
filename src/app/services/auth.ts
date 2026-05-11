@@ -20,8 +20,14 @@ export class AuthService {
   constructor(private auth: Auth) { }
 
 
-  login(email: string, senha: string) {
-    return signInWithEmailAndPassword(this.auth, email, senha);
+  async login(email: string, senha: string) {
+    try {
+      const credencial = await signInWithEmailAndPassword(this.auth, email, senha);
+      return credencial;
+    } catch (error) {
+      console.error("Erro no login email e senha", error);
+      throw error;
+    }
   }
 
   async registrar(email: string, senha: string, nickname: string) {
