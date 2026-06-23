@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'tela-login',
     pathMatch: 'full'
   },
   {
@@ -23,6 +23,11 @@ const routes: Routes = [
     path: 'sugestoes',
     loadChildren: () => import('./pages/sugestoes/sugestoes.module').then(m => m.SugestoesPageModule)
   },
+  {
+    path: 'detalhes-topico/:id',
+    loadChildren: () => import('./pages/detalhes-topico/detalhes-topico.module').then( m => m.DetalhesTopicoPageModule)
+  },
+
 
 ];
 

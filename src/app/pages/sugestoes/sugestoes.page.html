@@ -2,26 +2,16 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <div class="user-info-header" *ngIf="user">
-
-        <!-- Círculo de Avatar que alterna entre Foto ou Inicial -->
         <div class="avatar-circle-small">
           <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar-img-small" />
           <span *ngIf="!user.photoURL">{{ user.displayName?.charAt(0) }}</span>
         </div>
-
         <ion-label>{{ user.displayName }}</ion-label>
       </div>
     </ion-buttons>
-
     <ion-title>Comunidade OneDevs</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button (click)="confirmarLogout()" color="danger">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-buttons slot="end"><ion-button (click)="confirmarLogout()" color="danger"><ion-icon slot="icon-only" name="log-out-outline"></ion-icon></ion-button></ion-buttons>
   </ion-toolbar>
-
   <ion-toolbar>
     <ion-segment [(ngModel)]="filtro" (ionChange)="aplicarFiltro()">
       <ion-segment-button value="recentes"><ion-label>Recentes</ion-label></ion-segment-button>
@@ -32,43 +22,29 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <ion-card *ngFor="let s of listaSugestoes" class="sugestao-card">
+  <ion-card *ngFor="let s of listaSugestoes" class="sugestao-card" (click)="abrirDetalhes(s.id)" button="true">
     <ion-item lines="none" class="card-header">
-      <div slot="start" class="avatar-circle">
-        {{ s.autor_nome?.charAt(0).toUpperCase() }}
-      </div>
+      <div slot="start" class="avatar-circle">{{ s.autor_nome?.charAt(0).toUpperCase() }}</div>
       <ion-label>
         <h3>{{ s.autor_nome }}</h3>
         <p>{{ s.data?.toDate() | date:'dd/MM/yyyy HH:mm' }}</p>
       </ion-label>
-
-
       <ion-buttons slot="end" *ngIf="s.autor_id === user?.uid">
-        <ion-button (click)="prepararEdicao(s)">
-          <ion-icon slot="icon-only" name="create-outline" size="small"></ion-icon>
-        </ion-button>
-        <ion-button (click)="confirmarExclusao(s.id)" color="danger">
-          <ion-icon slot="icon-only" name="trash-outline" size="small"></ion-icon>
-        </ion-button>
+        <ion-button (click)="prepararEdicao(s); $event.stopPropagation()"><ion-icon name="create-outline"></ion-icon></ion-button>
+        <ion-button (click)="confirmarExclusao(s.id); $event.stopPropagation()" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
       </ion-buttons>
     </ion-item>
-
-    <ion-card-content class="card-body">
-      {{ s.texto }}
-    </ion-card-content>
-
+    <ion-card-content>{{ s.texto }}</ion-card-content>
     <ion-item lines="none" class="card-footer">
-      <ion-button fill="clear" (click)="votar(s)">
+      <ion-button fill="clear" (click)="votar(s); $event.stopPropagation()">
         <ion-icon [name]="jaVotou(s) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
         <ion-label>{{ s.votos || 0 }} curtidas</ion-label>
       </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        <ion-label>{{ s.total_comentarios || 0 }} comentários</ion-label>
+      </ion-button>
     </ion-item>
   </ion-card>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="novaSugestao()">
-      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed"><ion-fab-button (click)="novaSugestao()"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></ion-fab-button></ion-fab>
 </ion-content>

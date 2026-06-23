@@ -1,0 +1,84 @@
+/* --- DETALHES-TOPICO.PAGE.SCSS --- */
+
+ion-content {
+  --background: linear-gradient(var(--ion-color-surface), #000000);
+}
+
+/* Card Principal (Tópico) */
+ion-card {
+  background: var(--ion-color-surface);
+  border-radius: 16px;
+  border: 1px solid var(--ion-color-primary); /* Borda destacada para o post original */
+  color: white;
+  margin-bottom: 20px;
+}
+
+ion-card-title {
+  color: var(--ion-color-primary);
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+ion-card-subtitle {
+  color: #8a97a5;
+  margin-bottom: 10px;
+}
+
+/* Títulos das seções */
+ion-list-header {
+  background: transparent;
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+/* Lista de Comentários */
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 12px;
+  border-radius: 12px;
+  --border-style: none;
+  padding: 5px;
+}
+
+.avatar-circle-small {
+  width: 35px;
+  height: 35px;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-surface);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Footer (Input de Comentário) */
+ion-footer {
+  --border-style: none;
+  background: var(--ion-color-surface);
+}
+
+ion-toolbar {
+  --background: var(--ion-color-surface);
+}
+
+ion-input {
+  --color: white;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 0 10px;
+}
+
+ion-button {
+  --color: var(--ion-color-primary);
+}
+
+/* Ajuste para o botão de voltar */
+ion-back-button {
+  --color: var(--ion-color-primary);
+}

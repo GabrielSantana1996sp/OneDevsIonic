@@ -1,2 +1,29 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+:root {
+  /* Cores base do seu projeto */
+  --ion-color-primary: #4fc3f7;
+  --ion-color-primary-rgb: 79, 195, 247;
+  --ion-color-dark-bg: #000000;
+  --ion-color-surface: #0d1b2a;
+}
+
+/* Modo Escuro (Dark Mode) */
+body.dark {
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
+  
+  /* Sobrescrevendo o card para o tema escuro */
+  --app-card-background: rgba(13, 27, 42, 0.9);
+  --app-border-color: rgba(79, 195, 247, 0.3);
+}
+
+/* Modo Claro (Light Mode) */
+body.light {
+  --ion-background-color: #f6f8fc;
+  --ion-text-color: #000000;
+  
+  /* Sobrescrevendo o card para o tema claro */
+  --app-card-background: #ffffff;
+  --app-border-color: #d8dade;
+}

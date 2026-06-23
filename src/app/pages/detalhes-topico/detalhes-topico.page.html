@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/sugestoes"></ion-back-button></ion-buttons>
+    <ion-title>Discussão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="topico | async as t">
+    <ion-card-header>
+      <ion-card-subtitle>{{ t.autor_nome }} • {{ t.data?.toDate() | date:'short' }}</ion-card-subtitle>
+      <ion-card-title>{{ t.titulo }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>{{ t.texto }}</ion-card-content>
+  </ion-card>
+
+  <ion-list-header><ion-label>Comentários</ion-label></ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let c of comentarios | async">
+      <ion-avatar slot="start">
+        <img *ngIf="c.autor_foto" [src]="c.autor_foto" (error)="c.autor_foto = null" />
+        <div *ngIf="!c.autor_foto" class="avatar-circle-small">
+          {{ c.autor_nome?.charAt(0).toUpperCase() }}
+        </div>
+      </ion-avatar>
+      <ion-label class="ion-text-wrap">
+        <h3>{{ c.autor_nome }}</h3>
+        <p>{{ c.texto }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-input [(ngModel)]="novoComentario" placeholder="Escreva um comentário..."></ion-input>
+      <ion-button slot="end" (click)="enviarComentario()" [disabled]="!novoComentario"><ion-icon name="send"></ion-icon></ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

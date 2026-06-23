@@ -1,11 +1,13 @@
+/* --- S.PAGE.SCSS MESCLADO --- */
+
 ion-content {
-  --background: linear-gradient(#0d1b2a, #000000);
-  color: white;
+  --background: linear-gradient(var(--ion-color-surface), #000000);
+  color: var(--ion-color-step-50, white);
   --padding-bottom: 80px;
 }
 
 ion-toolbar {
-  --background: #0d1b2a;
+  --background: var(--ion-color-surface);
   --color: white;
 }
 
@@ -19,8 +21,8 @@ ion-toolbar {
 .avatar-circle-small {
   width: 28px;
   height: 28px;
-  background: #4fc3f7;
-  color: #0d1b2a;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-surface);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -37,7 +39,7 @@ ion-toolbar {
 }
 
 .user-name-header {
-  color: #4fc3f7 !important;
+  color: var(--ion-color-primary) !important;
   font-size: 0.85rem;
   font-weight: 600;
   max-width: 90px;
@@ -52,34 +54,36 @@ ion-title {
   text-align: center;
 }
 
+/* Segmento com cores dinâmicas */
 ion-segment {
   --background: transparent;
 }
 
 ion-segment-button {
   --background: transparent;
-  --background-checked: #4fc3f7;
+  --background-checked: var(--ion-color-primary);
   border-radius: 10px;
   margin: 0 5px;
   min-height: 40px;
 }
 
 ion-segment-button ion-label {
-  color: #ffffff !important;
+  color: white !important;
   font-weight: 500;
 }
 
 ion-segment-button.segment-button-checked ion-label {
-  color: #0d1b2a !important;
+  color: var(--ion-color-surface) !important;
   font-weight: bold;
 }
 
+/* Card Moderno */
 ion-card {
-  background: #0d1b2a;
+  background: var(--ion-color-surface);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   margin-bottom: 16px;
-  border: 1px solid rgba(79, 195, 247, 0.1);
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
   overflow: hidden;
 }
 
@@ -92,8 +96,8 @@ ion-card {
   width: 40px;
   height: 40px;
   background: #1e2a38;
-  color: #4fc3f7;
-  border: 1px solid #4fc3f7;
+  color: var(--ion-color-primary);
+  border: 1px solid var(--ion-color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -102,7 +106,7 @@ ion-card {
 }
 
 .card-header h3 {
-  color: #4fc3f7;
+  color: var(--ion-color-primary);
   margin: 0;
   font-weight: bold;
 }
@@ -131,7 +135,7 @@ ion-card {
 }
 
 .card-footer ion-label {
-  color: #4fc3f7 !important;
+  color: var(--ion-color-primary) !important;
   margin-left: 6px;
   font-weight: 500;
 }
@@ -141,10 +145,10 @@ ion-card {
 }
 
 .card-header ion-button {
-  --color: #4fc3f7;
+  --color: var(--ion-color-primary);
 }
 
 ion-fab-button {
-  --background: #4fc3f7;
-  --color: #0d1b2a;
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-surface);
 }

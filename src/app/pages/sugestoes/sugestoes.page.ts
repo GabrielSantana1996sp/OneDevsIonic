@@ -24,13 +24,13 @@ export class SugestoesPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.authService.getUsuarioObservable().subscribe(user => {
       this.user = user;
       if (this.user) {
         this.carregarDados();
       } else {
-        
+
         this.router.navigate(['/login']);
       }
     });
@@ -46,61 +46,61 @@ export class SugestoesPage implements OnInit {
     this.carregarDados();
   }
 
-async novaSugestao() {
- 
-  if (!this.user) {
-    this.presentToast('Aguarde o carregamento do perfil...', 'warning');
-    return;
+  async novaSugestao() {
+
+    if (!this.user) {
+      this.presentToast('Aguarde o carregamento do perfil...', 'warning');
+      return;
+    }
+
+    const alert = await this.alertCtrl.create({
+      header: 'Nova Sugestão',
+      inputs: [
+        {
+          name: 'comentario',
+          type: 'textarea',
+          placeholder: 'Sua ideia para o OneDevs...'
+        }
+      ],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Enviar',
+          handler: (data) => {
+
+            if (data.comentario && data.comentario.trim() !== '') {
+              this.enviarDados(data.comentario);
+            } else {
+              this.presentToast('O comentário não pode estar vazio.', 'warning');
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
-  const alert = await this.alertCtrl.create({
-    header: 'Nova Sugestão',
-    inputs: [
-      { 
-        name: 'comentario', 
-        type: 'textarea', 
-        placeholder: 'Sua ideia para o OneDevs...' 
-      }
-    ],
-    buttons: [
-      { text: 'Cancelar', role: 'cancel' },
-      { 
-        text: 'Enviar', 
-        handler: (data) => { 
-          
-          if (data.comentario && data.comentario.trim() !== '') {
-            this.enviarDados(data.comentario); 
-          } else {
-            this.presentToast('O comentário não pode estar vazio.', 'warning');
-          }
-        } 
-      }
-    ]
-  });
-  await alert.present();
-}
+  async enviarDados(texto: string) {
+    try {
 
-async enviarDados(texto: string) {
-  try {
-    
-    await this.sugestoesService.adicionarSugestao(texto, this.user);
-    
-    this.presentToast('Sugestão enviada com sucesso!', 'success');
-    
-    
-    this.carregarDados(); 
-    
-  } catch (error: any) {
-    console.error('Erro ao gravar no Firebase:', error);
-    
-   
-    if (error.code === 'permission-denied') {
-      this.presentToast('Erro de permissão no Firestore. Verifique as Regras!', 'danger');
-    } else {
-      this.presentToast('Erro ao enviar. Tente novamente.', 'danger');
+      await this.sugestoesService.adicionarSugestao(texto, this.user);
+
+      this.presentToast('Sugestão enviada com sucesso!', 'success');
+
+
+      this.carregarDados();
+
+    } catch (error: any) {
+      console.error('Erro ao gravar no Firebase:', error);
+
+
+      if (error.code === 'permission-denied') {
+        this.presentToast('Erro de permissão no Firestore. Verifique as Regras!', 'danger');
+      } else {
+        this.presentToast('Erro ao enviar. Tente novamente.', 'danger');
+      }
     }
   }
-}
 
   async prepararEdicao(sugestao: any) {
     const alert = await this.alertCtrl.create({
@@ -169,5 +169,9 @@ async enviarDados(texto: string) {
   async presentToast(message: string, color: string) {
     const toast = await this.toastCtrl.create({ message, duration: 2000, color });
     toast.present();
+  }
+
+  abrirDetalhes(id: string) {
+    this.router.navigate(['/detalhes-topico', id]);
   }
 }
